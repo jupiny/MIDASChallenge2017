@@ -3,10 +3,18 @@
 
 import os
 
-from .base import BASE_DIR
+from .base import BASE_DIR, PROJECT_ROOT_DIR
 
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+# Media files
+MEDIA_ROOT = os.path.join(
+    PROJECT_ROOT_DIR,
+    "dist",
+    "media",
+)
+MEDIA_URL = '/media/'
