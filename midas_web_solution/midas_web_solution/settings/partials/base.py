@@ -43,6 +43,10 @@ INSTALLED_APPS = [
 
     # 서브파티 라이브러리
     'django_extensions',
+
+    # 커스텀 어플리케이션 
+    'date',
+    'meal',
 ]
 
 MIDDLEWARE = [
