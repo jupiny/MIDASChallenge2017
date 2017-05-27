@@ -1,1 +1,2 @@
-from .create import CreateBreakfastView, CreateLunchView, CreateDinnerView
+from .create import BreakfastCreateView, LunchCreateView, DinnerCreateView
+from .delete import MealDeleteView

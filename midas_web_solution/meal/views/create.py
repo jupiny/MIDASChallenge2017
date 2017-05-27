@@ -19,7 +19,7 @@ SIDE_DISH = 3
 DESSERT = 4
 
 
-class CreateMealView(View):
+class MealCreateView(View):
     meal_type = None
     template_name = None
 
@@ -34,8 +34,7 @@ class CreateMealView(View):
             self.template_name,
             context={
                 'rice_set': Food.objects.filter(food_type=RICE),
-                'soup_set': Food.objects.filter(food_type=SOUP),
-                'side_dish_set': Food.objects.filter(food_type=SIDE_DISH),
+                'soup_set': Food.objects.filter(food_type=SOUP), 'side_dish_set': Food.objects.filter(food_type=SIDE_DISH),
                 'year': year,
                 'month': month,
                 'day': day,
@@ -82,16 +81,16 @@ class CreateMealView(View):
         )
 
 
-class CreateBreakfastView(CreateMealView):
+class BreakfastCreateView(MealCreateView):
     meal_type = BREAKFAST
     template_name = 'meal/new_breakfast.html'
 
 
-class CreateLunchView(CreateMealView):
+class LunchCreateView(MealCreateView):
     meal_type = LUNCH
     template_name = 'meal/new_lunch.html'
 
 
-class CreateDinnerView(CreateMealView):
+class DinnerCreateView(MealCreateView):
     meal_type = DINNER
     template_name = 'meal/new_dinner.html'
