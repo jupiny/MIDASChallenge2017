@@ -51,7 +51,13 @@ INSTALLED_APPS = [
     'menu',
     'eating',
     'users',
+
+    'disqus',
+    'django.contrib.sites',
 ]
+
+DISQUS_WEBSITE_SHORTNAME = 'health-meal'
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
