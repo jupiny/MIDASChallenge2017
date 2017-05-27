@@ -28,11 +28,13 @@
                         </h4>
                         <h5>Software Developer at <a href="http://gridle.in">Gridle.in</a></h5>
                         <hr style="margin:8px auto">
+                    {% if request.user.is_staff %}
 
                         <span class="label label-success"><a style="color:white"
                                                              href="{% url "food:edit" pk=food.id %}">수정</a></span>
                         <span class="label label-danger"><a style="color:white"
                                                             href="{% url "food:delete" pk=food.id %}">삭제</a></span>
+                    {% endif %}
                     </div>
                 </div>
             {% endfor %}
