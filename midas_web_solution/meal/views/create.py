@@ -7,6 +7,7 @@ from date.models import Date
 from food.models import Food
 from menu.models import Menu
 from meal.models import Meal
+from users.mixins import AdminRequiredMixin
 
 
 BREAKFAST = 1
@@ -19,7 +20,7 @@ SIDE_DISH = 3
 DESSERT = 4
 
 
-class MealCreateView(View):
+class MealCreateView(AdminRequiredMixin, View):
     meal_type = None
     template_name = None
 

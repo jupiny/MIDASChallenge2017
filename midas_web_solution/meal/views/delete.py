@@ -4,9 +4,10 @@ from django.core.urlresolvers import reverse
 
 from meal.models import Meal 
 from date.models import Date
+from users.mixins import AdminRequiredMixin
 
 
-class MealDeleteView(View):
+class MealDeleteView(AdminRequiredMixin, View):
     
     def get(self, request, *args, **kwargs):
         meal_id = kwargs.get('meal_id')

@@ -6,6 +6,7 @@ from meal.models import Meal
 from date.models import Date
 from food.models import Food
 from menu.models import Menu 
+from users.mixins import AdminRequiredMixin
 
 
 RICE = 1
@@ -14,7 +15,7 @@ SIDE_DISH = 3
 DESSERT = 4
 
 
-class MealUpdateView(View):
+class MealUpdateView(AdminRequiredMixin, View):
     
     def get(self, request, *args, **kwargs):
         meal_id = kwargs.get('meal_id')
