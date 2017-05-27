@@ -104,5 +104,12 @@ function kCalendar(id, date) {
 
 
 function clickDate(year, month, day) {
-    // 날짜에 해당하는 페이지로 이동해야하는거 넣어야함
+  // 날짜에 해당하는 페이지로 이동해야하는거 넣어야함
+  if(month < 10) {
+      month = "0" + month
+  }
+  if(day< 10) {
+      day = "0" + day
+  }
+  window.location.href = "/date/" + year + "/" + month + "/" + day;
 }

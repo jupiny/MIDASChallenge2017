@@ -1,5 +1,5 @@
 from django.views.generic. base import View
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 
 from date.models import Date
 
@@ -12,7 +12,7 @@ class DateDetailView(View):
         month = kwargs.get('month')
         day = kwargs.get('day')
         date = year+"-"+month+"-"+day
-        date = get_object_or_404(Date, date=date)
+        date, created = Date.objects.get_or_create(date=date)
         return render(
             request,
             'date/detail.html',
