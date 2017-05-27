@@ -1,30 +1,57 @@
 {% extends "base.html" %}
 {% block title %}음식 상세정보{% endblock title %}
 {% block content %}
-    <p>{{ food.name }}</p>
-    <img width="350" height="150" src="{{ food.image_url }}" alt="">
-    <a href="{% url "food:edit" pk=food.id %}">수정</a>
-    <a href="{% url "food:delete" pk=food.id %}">삭제</a>
 
-    <div class="row">
+    <div style="padding-top:70px">
 
-        <div class="col-lg-5">
-            <div class="media">
-                <a class="pull-left" href="#">
-                    <img class="media-object dp img-circle" src="{{ food.image_url }}"
-                         style="width: 100px;height:100px;">
-                </a>
-                <div class="media-body">
-                    <h4 class="media-heading">{{ food.name }}
-                        <small> {{ food.food_type }}</small>
-                    </h4>
-                    <h5>Software Developer at <a href="http://gridle.in">Gridle.in</a></h5>
-                    <hr style="margin:8px auto">
-
-                    <span class="label label-default"><a href="{% url "food:edit" pk=food.id %}">수정</a></span>
-                    <span class="label label-default"><a href="{% url "food:delete" pk=food.id %}">삭제</a></span>
-                </div>
+    </div>
+    <div id="detail" class="container" style="padding-bottom:200px; padding-top:150px;">
+        <div class="row">
+            <div class="col-xs-4 item-photo">
+                <img style="max-width:100%;" src="{{ food.image_url }}" alt="">
             </div>
+
+            <h3>{{ food.name }}
+                {% if request.user.is_staff %}
+                <span id="edit" class="label label-success"><a style="color:white"
+                                                     href="{% url "food:edit" pk=food.id %}">수정</a></span>
+                <span id="delete" class="label label-danger"><a style="color:white"
+                                                    href="{% url "food:delete" pk=food.id %}">삭제</a>
+                </span>
+                {% endif %}
+            </h3>
+            <hr/>
+
+            <h4 id="cal" data-calorie="{{ food.calorie }}">
+                칼로리 : {{ food.calorie }}
+            </h4>
+            <h4 id="origin">
+                원산지 : {{ food.origin }}
+            </h4>
         </div>
     </div>
+    <div style="padding-bottom:100px;">
+
+    </div>
+
 {% endblock content %}
+
+{% block javacript %}
+    <script>
+        $(document).ready(function () {
+            var cal = $('#cal').data("calorie");
+
+            if (cal >= 400){
+                 $('#detail').css('background-color', '#F31347');
+                 $('#delete').css('background-color', '#E8E861');
+            }
+            else if (cal >= 300){
+                $('#detail').css('background-color', '#E8E861');
+            }
+            else{
+                $('#detail').css('background-color', '#3EC943');
+                $('#edit').css('background-color', '#E8E861');
+            }
+        });
+    </script>
+{% endblock %}
