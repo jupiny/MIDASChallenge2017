@@ -51,9 +51,6 @@ INSTALLED_APPS = [
     'menu',
     'eating',
     'users',
-
-    'disqus',
-    'django.contrib.sites',
 ]
 
 DISQUS_WEBSITE_SHORTNAME = 'health-meal'
