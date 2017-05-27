@@ -32,5 +32,6 @@ urlpatterns = [
                   url(r'^$', home, name='home'),
                   url(r'^foods/', include('food.urls', namespace='food')),
                   url(r'^date/', include('date.urls', namespace='date')),
+                  url(r'^api/', include('api.urls', namespace='api')),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
