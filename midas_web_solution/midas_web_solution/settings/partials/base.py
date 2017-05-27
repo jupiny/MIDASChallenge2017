@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # 커스텀 어플리케이션 
     'date',
     'meal',
+    'food',
 ]
 
 MIDDLEWARE = [
