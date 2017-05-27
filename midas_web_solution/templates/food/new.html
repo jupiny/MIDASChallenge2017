@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}음식 생성{% endblock title %}
+{% block content %}
+<form action="">
+  {% csrf_token %}
+  <label for="">이름</label>
+  <input type="name">
+  <label for="">칼로리</label>
+  <input type="calorie">
+  <label for="">원산지</label>
+  <input type="origin">
+  <input type="submit" value="저장" />
+</form>
+{% endblock content %}

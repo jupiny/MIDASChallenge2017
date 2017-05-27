@@ -5,4 +5,5 @@ from .views import *
 
 urlpatterns = [
     url(r'^$', FoodListView.as_view(), name='list'),
+    url(r'^new/$', FoodNewView.as_view(), name='new'),
 ]
