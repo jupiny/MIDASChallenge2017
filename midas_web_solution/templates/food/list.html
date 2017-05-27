@@ -3,6 +3,7 @@
 {% block content %}
 {% for food in foods %}
   <p>음식 : {{ food.name }}</p>
+  <img width="350" height="150" src="{{ food.image_url }}" alt="">
 {% endfor %}
 {% endblock content %}
 
