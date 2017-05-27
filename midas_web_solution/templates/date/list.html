@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}식단 검색 결과{% endblock title %}
+{% block content %}
+{% for date in date_set %}
+<a href="{% url "date:detail" year=date.date.year month=date.date.month day=date.date.day %}"><h1>{{ date.date_to_str }}</h1></a>
+<h3>아침</h3>
+{% if date.breakfast_meal %}
+  <p>밥 : {{ date.breakfast_meal.rice.name }}</p>
+  <p>국 : {{ date.breakfast_meal.soup.name }}</p>
+  {% for side_dish in date.breakfast_meal.side_dish_set.all %}
+    <p>반찬 : {{ side_dish.name }}</p>
+  {% endfor %}
+{% else %}
+없음
+{% endif %}
+<h3>점심</h3>
+{% if date.lunch_meal %}
+  <p>밥 : {{ date.lunch_meal.rice.name }}</p>
+  <p>국 : {{ date.lunch_meal.soup.name }}</p>
+  {% for side_dish in date.lunch_meal.side_dish_set.all %}
+    <p>반찬 : {{ side_dish.name }}</p>
+  {% endfor %}
+{% else %}
+없음
+{% endif %}
+<h3>저녁</h3>
+{% if date.dinner_meal %}
+  <p>밥 : {{ date.dinner_meal.rice.name }}</p>
+  <p>국 : {{ date.dinner_meal.soup.name }}</p>
+  {% for side_dish in date.dinner_meal.side_dish_set.all %}
+    <p>반찬 : {{ side_dish.name }}</p>
+  {% endfor %}
+{% else %}
+없음
+{% endif %}
+{% endfor %}
+{% endblock content %}

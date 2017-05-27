@@ -4,3 +4,4 @@ django-extensions==1.7.9
 dj-database-url==0.4.2
 psycopg2==2.7.1
 Pillow==4.1.1
+djangorestframework=3.6.3
