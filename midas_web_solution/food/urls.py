@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/$', FoodDetailView.as_view(), name='detail'),
     url(r'^(?P<pk>\d+)/edit/$', FoodEditView.as_view(), name='edit'),
     url(r'^(?P<pk>\d+)/update/$', FoodUpdateView.as_view(), name='update'),
+    url(r'^(?P<pk>\d+)/delete/$', FoodDeleteView.as_view(), name='delete'),
 ]

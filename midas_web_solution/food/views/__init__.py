@@ -4,3 +4,4 @@ from .create import FoodCreateView
 from .detail import FoodDetailView
 from .edit import FoodEditView
 from .update import FoodUpdateView
+from .delete import FoodDeleteView

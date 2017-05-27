@@ -2,7 +2,9 @@
 {% block title %}전체 음식{% endblock title %}
 {% block content %}
 {% for food in foods %}
-  <p>음식 : {{ food.name }}</p>
+  <p>
+    <a href="{% url "food:detail" pk=food.id %}">{{ food.name }}</a>
+  </p>
   <img width="350" height="150" src="{{ food.image_url }}" alt="">
 {% endfor %}
 {% endblock content %}
