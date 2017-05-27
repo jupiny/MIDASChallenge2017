@@ -20,5 +20,8 @@ class DateDetailView(View):
                 'breakfast_meal': date.breakfast_meal,
                 'lunch_meal': date.lunch_meal,
                 'dinner_meal': date.dinner_meal,
+                'year': year,
+                'month': month,
+                'day': day,
              }
         )
