@@ -1,11 +1,32 @@
 {% extends "base.html" %}
 {% block title %}전체 음식{% endblock title %}
 {% block content %}
-{% for food in foods %}
-  <p>
-    <a href="{% url "food:detail" pk=food.id %}">{{ food.name }}</a>
-  </p>
-  <img width="350" height="150" src="{{ food.image_url }}" alt="">
-{% endfor %}
+
+    <h1 class="center-block" style="width:300px;padding:15px;">음식 리스트</h1>
+
+
+    {% for food in foods %}
+        <p>
+            <a href="{% url "food:detail" pk=food.id %}">{{ food.name }}</a>
+        </p>
+        <img width="350" height="150" src="{{ food.image_url }}" alt="">
+    {% endfor %}
+
+    <br/>
+
+    <div>
+    <span class="center-block" style="width:300px;padding:15px;">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">PreviousPage</a>
+        {% endif %}
+
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
+        {% endif %}
+    </span>
+    </div>
+
 {% endblock content %}
 
