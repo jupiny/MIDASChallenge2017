@@ -1,28 +1,30 @@
+
 {% extends "base.html" %}
 {% block title %}음식 생성{% endblock title %}
 {% block content %}
-<form action="{% url "date:meal:create_breakfast" year=year month=month day=day %}" method="POST">
+<form action="{% url "date:meal:update" year=year month=month day=day meal_id=meal.id %}" method="POST">
   {% csrf_token %}
   <label for="">밥</label>
   <select id="" name="rice">
     {% for rice in rice_set %}
-      <option value="{{ rice.id }}">{{ rice.name }}</option>
+      <option value="{{ rice.id }}" {% if rice.id == meal.rice.id %}selected{% endif %}>{{ rice.name }}</option>
     {% endfor %}
   </select>
   <label for="">국</label>
   <select id="" name="soup">
     {% for soup in soup_set %}
-      <option value="{{ soup.id }}">{{ soup.name }}</option>
+      <option value="{{ soup.id }}" {% if soup.id == meal.soup.id %}selected{% endif %}>{{ soup.name }}</option>
     {% endfor %}
   </select>
   <div id="div-side-dish">
     <label id="" for="">반찬</label>
-    <select class="select-side-dish" name="side_dish">
-      <option value="-1">선택하세요</option>
+    {% for meal_side_dish in meal.side_dish_set %}
+      <select class="select-side-dish" name="side_dish">
       {% for side_dish in side_dish_set %}
-        <option value="{{ side_dish.id }}">{{ side_dish.name }}</option>
+        <option value="{{ side_dish.id }}" {% if side_dish.id == meal_side_dish.id %}selected{% endif %}>{{ side_dish.name }}</option>
       {% endfor %}
-    </select>
+      </select>
+    {% endfor %}
   </div>
   <button type="button" id="btn-add-side-dish">반찬 추가</button>
   <button type="button" id="btn-delete-side-dish">반찬 제거</button>
