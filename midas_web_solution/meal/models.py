@@ -38,6 +38,14 @@ class Meal(models.Model):
     def dessert_set(self):
         return self.food_set.filter(food_type=DESSERT)
 
+    @property
+    def all_calories(self):
+        all_calories = 0
+        for food in self.food_set.all():
+            all_calories += food.calorie
+        return all_calories
+
+
     def update_side_dish_id_set(self, new_side_dish_id_set):
         cur_side_dish_id_set = self.side_dish_set.values_list('id', flat=True)
 
