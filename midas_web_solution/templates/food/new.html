@@ -1,21 +1,73 @@
 {% extends "base.html" %}
 {% block title %}음식 생성{% endblock title %}
 {% block content %}
-<form action="{% url "food:create" %}" method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-  <label for="">이미지</label>
-  <input type="file" name="image">
-  <label for="">이름</label>
-  <input type="text" name="name">
-  <label for="">칼로리</label>
-  <input type="number" name="calorie" min=0>
-  <label for="">원산지</label>
-  <input type="text" name="origin">
-  <br>
-  <input type="radio" name="food_type" value="1" checked>밥<br>
-  <input type="radio" name="food_type" value="2" >국<br>
-  <input type="radio" name="food_type" value="3" >반찬<br>
-  <input type="radio" name="food_type" value="4" >디저트<br>
-  <input type="submit" value="저장" />
-</form>
+    <div class="container content md-margin-bottom-40">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                <form action="{% url "food:create" %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="funkyradio">
+                        <div class="reg-header">
+                            <h2>Create Food</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 funkyradio-default">
+                                <input type="radio" name="food_type" value="1" class="radio" id="radio1"
+                                       {% if food.food_type == 1 %}checked{% endif %}>
+                                <label for="radio1"><h4>밥</h4></label>
+                            </div>
+
+                            <div class="col-md-3 funkyradio-default">
+                                <input type="radio" name="food_type" value="2" class="radio" id="radio2"
+                                       {% if food.food_type == 2 %}checked{% endif %}>
+                                <label for="radio2"><h4>국</h4></label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3 funkyradio-default">
+                                <input type="radio" name="food_type" value="3" class="radio" id="radio3"
+                                       {% if food.food_type == 3 %}checked{% endif %}>
+                                <label for="radio3"><h4>반찬</h4></label>
+                            </div>
+
+                            <div class="col-md-3 funkyradio-default">
+                                <input type="radio" name="food_type" value="4" class="radio" id="radio4"
+                                       {% if food.food_type == 4 %}checked{% endif %}>
+                                <label for="radio4"><h4>후식</h4></label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="name"><h2>이름</h2></label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ food.name }}">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="calorie"><h2>칼로리</h2></label>
+                        <input type="number" class="form-control " id="calorie" name="calorie" min=0
+                               value="{{ food.calorie }}">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="origin"><h2>원산지</h2></label>
+                        <input type="text" class="form-control " id="origin" name="origin" value="{{ food.origin }}">
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="image"><h2>이미지</h2></label>
+                        <input type="file" class="form-control" id="image" name="image">
+                    </div>
+                    <br>
+                    <div class="col-md-12">
+                        <input type="submit" class="btn btn-primary" value="저장"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+
 {% endblock content %}
