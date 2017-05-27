@@ -1,5 +1,7 @@
 from django.db import models
 
+from menu.models import Menu
+
 
 BREAKFAST = 1
 LUNCH = 2
@@ -42,3 +44,17 @@ class Meal(models.Model):
     @property
     def dessert_set(self):
         return self.food_set.filter(food_type=DESSERT)
+
+    def update_side_dish_id_set(self, new_side_dish_id_set):
+        cur_side_dish_id_set = self.side_dish_set.values_list('id', flat=True)
+
+        insert_side_dish_id_set = list(set(new_side_dish_id_set)-set(cur_side_dish_id_set))
+        delete_side_dish_id_set = list(set(cur_side_dish_id_set)-set(new_side_dish_id_set))
+
+        if insert_side_dish_id_set:
+            Menu.objects.bulk_create([
+                Menu(food_id=side_dish_id, meal_id=self.id)
+                for side_dish_id in insert_side_dish_id_set
+            ])
+        if delete_side_dish_id_set:
+            self.menu_set.filter(food_id__in=delete_side_dish_id_set).delete()
