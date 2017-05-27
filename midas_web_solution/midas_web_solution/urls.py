@@ -18,12 +18,19 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 
+from .views.home import UserCreateView, UserCreateDoneTV
+
 from .views import home
 
-
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', home, name='home'),
-    url(r'^foods/', include('food.urls', namespace='food')),
-    url(r'^date/', include('date.urls', namespace='date')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                  url(r'^admin/', admin.site.urls),
+
+                  # --- Registration Url
+                  url(r'^account/', include('django.contrib.auth.urls')),
+                  url(r'^account/register/$', UserCreateView.as_view(), name='register'),
+                  url(r'^account/register/done/$', UserCreateDoneTV.as_view(), name='register_done'),
+
+                  url(r'^$', home, name='home'),
+                  url(r'^foods/', include('food.urls', namespace='food')),
+
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
