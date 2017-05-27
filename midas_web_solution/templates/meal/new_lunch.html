@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}음식 생성{% endblock title %}
+{% block content %}
+<form action="{% url "date:meal:create_lunch" year=year month=month day=day %}" method="POST">
+  {% csrf_token %}
+  <label for="">밥</label>
+  <select id="" name="rice">
+    {% for rice in rice_set %}
+      <option value="{{ rice.id }}">{{ rice.name }}</option>
+    {% endfor %}
+  </select>
+  <label for="">국</label>
+  <select id="" name="soup">
+    {% for soup in soup_set %}
+      <option value="{{ soup.id }}">{{ soup.name }}</option>
+    {% endfor %}
+  </select>
+  <div id="div-side-dish">
+    <label id="" for="">반찬</label>
+    <select class="select-side-dish" name="side_dish">
+    {% for side_dish in side_dish_set %}
+      <option value="{{ side_dish.id }}">{{ side_dish.name }}</option>
+    {% endfor %}
+    </select>
+  </div>
+  <button type="button" id="btn-add-side-dish">반찬 추가</button>
+  <button type="button" id="btn-delete-side-dish">반찬 제거</button>
+  <input type="submit" value="저장" />
+</form>
+{% endblock content %}
+{% block javacript %}
+<script>
+$(document).ready(function() {
+  $("#btn-add-side-dish").click(function() {
+    $(".select-side-dish").last().clone().appendTo("#div-side-dish");
+  });
+  $("#btn-delete-side-dish").click(function() {
+    $(".select-side-dish").last().remove();
+  });
+});
+</script>
+{% endblock javacript %}
