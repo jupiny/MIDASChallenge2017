@@ -4,8 +4,8 @@
     {% for date in date_set %}
         <div class="container text-center" style="margin-top:120px; margin-bottom: 200px;">
             <div class="col-md-8 col-md-offset-2">
-            <a href="{% url "date:detail" year=date.date.year month=date.date.month day=date.date.day %}">
-            <h1>{{ date.date_to_str }} 식단</h1></a>
+                <a href="{% url "date:detail" year=date.date.year month=date.date.month day=date.date.day %}">
+                    <h1>{{ date.date_to_str }} 식단</h1></a>
                 <table class="table table-condensed table-hover table-bordered">
                     <thead>
                     <th class="text-center"><h4>아침</h4></th>
@@ -13,8 +13,16 @@
                     <th class="text-center"><h4>저녁</h4></th>
                     </thead>
                     <tr>
-                        <td>
-                            {% if date.breakfast_meal %}
+                        {% if date.breakfast_meal %}
+                            <td
+                                    {% if date.breakfast_meal.all_calories >= 1500 %}
+                                        style="background-color:#F31347;"
+                                    {% elif date.breakfast_meal.all_calories >= 1000 %}
+                                        style="background-color:#E8E861;"
+                                    {% elif date.breakfast_meal.all_calories > 0 %}
+                                        style="background-color:#3EC943;"
+                                    {% endif %}
+                            >
                                 <p>{{ date.breakfast_meal.rice.name }}</p>
                                 <p>{{ date.breakfast_meal.soup.name }}</p>
                                 {% for side_dish in breakfast_meal.side_dish_set.all %}
@@ -24,15 +32,24 @@
                                     <a href="{% url "date:meal:update" year=date.date.year month=date.date.month day=date.date.day meal_id=date.breakfast_meal.id %}">수정하기</a>
                                     <a href="{% url "date:meal:delete" year=date.date.year month=date.date.month day=date.date.day meal_id=date.breakfast_meal.id %}">삭제하기</a>
                                 {% endif %}
-                            {% else %}
-                                {% if request.user.is_staff %}
-                                    <a href="{% url "date:meal:create_breakfast" year=date.date.year month=date.date.month day=date.date.day %}">생성하기</a>
-                                {% endif %}
+                                {% else %}
+                            <td>
+                            {% if request.user.is_staff %}
+                                <a href="{% url "date:meal:create_breakfast" year=date.date.year month=date.date.month day=date.date.day %}">생성하기</a>
                             {% endif %}
+                        {% endif %}
                         </td>
 
-                        <td>
-                            {% if date.lunch_meal %}
+                        {% if date.lunch_meal %}
+                            <td
+                                    {% if date.lunch_meal.all_calories >= 1500 %}
+                                        style="background-color:#F31347;"
+                                    {% elif date.lunch_meal.all_calories >= 1000 %}
+                                        style="background-color:#E8E861;"
+                                    {% elif date.lunch_meal.all_calories > 0 %}
+                                        style="background-color:#3EC943;"
+                                    {% endif %}
+                            >
                                 <p>{{ date.lunch_meal.rice.name }}</p>
                                 <p>{{ date.lunch_meal.soup.name }}</p>
                                 {% for side_dish in lunch_meal.side_dish_set.all %}
@@ -42,14 +59,23 @@
                                     <a href="{% url "date:meal:update" year=date.date.year month=date.date.month day=date.date.day meal_id=date.lunch_meal.id %}">수정하기</a>
                                     <a href="{% url "date:meal:delete" year=date.date.year month=date.date.month day=date.date.day meal_id=date.lunch_meal.id %}">삭제하기</a>
                                 {% endif %}
-                            {% else %}
-                                {% if request.user.is_staff %}
-                                    <a href="{% url "date:meal:create_lunch" year=date.date.year month=date.date.month day=date.date.day %}">생성하기</a>
-                                {% endif %}
+                                {% else %}
+                            <td>
+                            {% if request.user.is_staff %}
+                                <a href="{% url "date:meal:create_lunch" year=date.date.year month=date.date.month day=date.date.day %}">생성하기</a>
                             {% endif %}
+                        {% endif %}
                         </td>
-                        <td>
-                            {% if date.dinner_meal %}
+                        {% if date.dinner_meal %}
+                            <td
+                                    {% if date.dinner_meal.all_calories >= 1500 %}
+                                        style="background-color:#F31347;"
+                                    {% elif date.dinner_meal.all_calories >= 1000 %}
+                                        style="background-color:#E8E861;"
+                                    {% elif date.dinner_meal.all_calories > 0 %}
+                                        style="background-color:#3EC943;"
+                                    {% endif %}
+                            >
                                 <p>{{ date.dinner_meal.rice.name }}</p>
                                 <p>{{ date.dinner_meal.soup.name }}</p>
                                 {% for side_dish in dinner_meal.side_dish_set.all %}
@@ -59,14 +85,36 @@
                                     <a href="{% url "date:meal:update" year=date.date.year month=date.date.month day=date.date.day meal_id=date.dinner_meal.id %}">수정하기</a>
                                     <a href="{% url "date:meal:delete" year=date.date.year month=date.date.month day=date.date.day meal_id=date.dinner_meal.id %}">삭제하기</a>
                                 {% endif %}
-                            {% else %}
-                                {% if request.user.is_staff %}
-                                    <a href="{% url "date:meal:create_dinner" year=date.date.year month=date.date.month day=date.date.day %}">생성하기</a>
-                                {% endif %}
+                                {% else %}
+                            <td>
+                            {% if request.user.is_staff %}
+                                <a href="{% url "date:meal:create_dinner" year=date.date.year month=date.date.month day=date.date.day %}">생성하기</a>
                             {% endif %}
+                        {% endif %}
                         </td>
                     </tr>
                     <tr>
+                        <td>
+                            {% if date.breakfast_meal %}
+                                <p>{{ date.breakfast_meal.all_calories }}</p>
+                            {% else %}
+                                <p> - </p>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if date.lunch_meal %}
+                                <p>{{ date.lunch_meal.all_calories }}</p>
+                            {% else %}
+                                <p> - </p>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if date.dinner_meal %}
+                                <p>{{ date.dinner_meal.all_calories }}</p>
+                            {% else %}
+                                <p> - </p>
+                            {% endif %}
+                        </td>
                     </tr>
                 </table>
             </div>
