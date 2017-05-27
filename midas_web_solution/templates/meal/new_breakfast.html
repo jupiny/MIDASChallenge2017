@@ -1,39 +1,77 @@
 {% extends "base.html" %}
-{% block title %}음식 생성{% endblock title %}
+{% block title %}아침 식단 생성{% endblock title %}
 {% block content %}
-    <form action="{% url "date:meal:create_breakfast" year=year month=month day=day %}" method="POST">
-        {% csrf_token %}
-        <label for="">밥</label>
-        <select id="" name="rice">
-            {% for rice in rice_set %}
-                <option value="{{ rice.id }}">{{ rice.name }}</option>
-            {% endfor %}
-        </select>
-        <label for="">국</label>
-        <select id="" name="soup">
-            {% for soup in soup_set %}
-                <option value="{{ soup.id }}">{{ soup.name }}</option>
-            {% endfor %}
-        </select>
-        <div id="div-side-dish">
-            <label id="" for="">반찬</label>
-            <select class="select-side-dish" name="side_dish">
-                <option value="-1">선택하세요</option>
-                {% for side_dish in side_dish_set %}
-                    <option value="{{ side_dish.id }}">{{ side_dish.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <button type="button" id="btn-add-side-dish">반찬 추가</button>
-        <button type="button" id="btn-delete-side-dish">반찬 제거</button>
-        <input type="submit" value="저장"/>
-    </form>
+    <div class="reg-header center-block" style="width: 300px;padding:15px;">
+        <legend>아침 식단 생성</legend>
+    </div>
+    <div class="container content md-margin-bottom-40">
+        <form action="{% url "date:meal:create_breakfast" year=year month=month day=day %}"
+              class="form-horizontal" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="">밥</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="" name="rice">
+                        {% for rice in rice_set %}
+                            <option value="{{ rice.id }}"
+                                    {% if rice.id == meal.rice.id %}selected{% endif %}>{{ rice.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="">국</label>
+                <div class="col-md-4">
+                    <select class="form-control" id="" name="soup">
+                        {% for soup in soup_set %}
+                            <option value="{{ soup.id }}"
+                                    {% if soup.id == meal.soup.id %}selected{% endif %}>{{ soup.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" id="" for="">반찬</label>
+                <div class="col-md-4">
+                    <div id="div-side-dish">
+                        <select class="select-side-dish form-control" name="side_dish">
+                            {% for side_dish in side_dish_set %}
+                                <option value="{{ side_dish.id }}"
+                                        {% if side_dish.id == meal_side_dish.id %}selected{% endif %}>{{ side_dish.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+
+           <div class="form-group" style="padding-left:50px;">
+                <label class="col-md-4 control-label"></label>
+                <div class="col-md-2">
+                    <button class="btn btn-success " type="button" id="btn-add-side-dish">반찬 추가</button>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-danger" type="button" id="btn-delete-side-dish">반찬 제거</button>
+                </div>
+            </div>
+
+            <div class="form-group" style="padding-left:70px">
+                <label class="col-md-5 control-label"></label>
+                <div class="col-md-4">
+                    <input class="btn btn-primary" type="submit" value="저장"/>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock content %}
 {% block javacript %}
     <script>
         $(document).ready(function () {
             $("#btn-add-side-dish").click(function () {
                 $(".select-side-dish").last().clone().appendTo("#div-side-dish");
+                $('#div-side-dish').append('<br/>');
             });
             $("#btn-delete-side-dish").click(function () {
                 $(".select-side-dish").last().remove();
