@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+<head>
+   <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>Chart</title>
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+   <script src="/static/js/Chart.min.js"></script>
+   <script src="/static/js/Chart.LlineBar.js"></script>
+   
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    $( function() {
+      $( "#beginDate" ).datepicker();
+      $( "#endDate" ).datepicker();
+    } );
+    </script>
+</head>
+<body>
+    <h1>사용자 통계</h1>
+   <div style="width: 50%">
+
+      <p>시작: <input type="text" id="beginDate"> 끝: <input type="text" id="endDate"> 간격: <select id="range"><option value="1"> 하루
+      </option><option value="3"> 3일 </option><option value="7"> 1주 </option><option value="14"> 2주 </option><option value="30"> 30일 </option>
+       </select>
+       <select id="who"><option value=0>자신</option><option value=1>전체</option></select> 
+      <input type="button" id="button" value="보기" onclick="makeTable(document.getElementById('beginDate').value, document.getElementById('endDate').value, document.getElementById('range').value, 0);"> </p>
+   </div>
+   
+   
+   <div style="width: 50%">
+      <canvas id="canvas" height="300" width="600"></canvas>
+   </div>
+   
+   <h2 id=inform2>해당 기간동안 먹은 식단의 총 횟수는?</h2>
+   <script>
+
+var chart = null;
+function makeTable(begin, end, range, who){
+   var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+
+
+   /* get list of date */
+   begin = new Date(begin);
+   end = new Date(end);
+   range = parseInt(range);
+   var years = [];
+   var months = [];
+   var days = [];
+   var totalDay = 0;
+
+
+
+   for (var d =begin; d <= end; d.setDate(d.getDate() + 1)) {
+       years.push(d.getFullYear());
+       months.push(d.getMonth() + 1);
+       days.push(d.getDate());
+       totalDay += 1;
+   }
+   // label is day
+   // datasets is value
+   var lineBarChartData = {
+   labels : [],
+   datasets : [
+      {
+         // total
+         type: "line",
+         fillColor : "rgba(151,187,205,0)",
+         strokeColor : "rgba(151,187,205,1)",
+         pointColor : "rgba(151,187,205,1)",
+         pointStrokeColor : "#fff",
+         pointHighlightFill : "#fff",
+         pointHighlightStroke : "rgba(151,187,205,1)",
+         data : []
+      },
+      {
+         // morning
+
+         fillColor : "rgba(220,220,220,0.5)",
+         strokeColor : "rgba(220,220,220,0.8)",
+         highlightFill: "rgba(220,220,220,0.75)",
+         highlightStroke: "rgba(220,220,220,1)",
+         data : []
+      },
+      {
+         // lunch
+         fillColor : "rgba(151,187,205,0.5)",
+         strokeColor : "rgba(151,187,205,0.8)",
+         highlightFill : "rgba(151,187,205,0.75)",
+         highlightStroke : "rgba(151,187,205,1)",
+         data : []
+      },
+      {
+         // dinner
+         fillColor : "rgba(150, 153, 255,0.5)",
+         strokeColor : "rgba(150, 153, 255,0.8)",
+         highlightFill : "rgba(150, 153, 255,0.75)",
+         highlightStroke : "rgba(150, 153, 255,1)",
+         data : []
+      }
+   ]
+
+   }
+   var accumbreak = 0;
+   var accumlunch = 0;
+   var accumdinner = 0;
+
+   var maxEating=[null, null];
+   var maxVal = -1;
+   var sum = 0, partSum = 0;
+   var maxDay = -1;
+   var maxVal2 = -1;
+   var maxDay2 = -1;
+   for (var i = 0; i < totalDay; ++i){
+      var year = years[i];
+      var month = months[i];
+      var day = days[i];
+
+      var dat = new Date(year, month, day);
+      /*AJAX?*/
+
+
+      var response = req(year, month, day);
+
+      var breakfast = response[0];
+      var lunch = response[1];
+      var dinner = response[2];
+      partSum = breakfast + lunch + dinner;
+
+      if (maxVal < breakfast){
+         maxEating = [dat, 0];
+         maxVal = breakfast;
+      }
+      if (maxVal < lunch){
+         maxEating = [dat, 1];
+         maxVal = lunch;
+      }
+      if (maxVal < dinner){
+         maxEating = [dat, 2];
+         maxVal = dinner;
+      }
+      if (maxVal2 < partSum){
+          maxVal2 = partSum;
+          maxDay2 = dat;
+
+
+      }
+
+
+      accumbreak += breakfast;
+      accumlunch += lunch;
+      accumdinner += dinner;
+
+      sum += breakfast;
+      sum += lunch;
+      sum += dinner;
+
+      if ((i + 1) % range == 0 || i >= totalDay - 1){
+
+
+         lineBarChartData.labels.push('' + year + '-' + month + '-' + day);
+         
+         lineBarChartData.datasets[1].data.push(accumbreak);
+         lineBarChartData.datasets[2].data.push(accumlunch);
+         lineBarChartData.datasets[3].data.push(accumdinner);
+
+         accumbreak = 0;
+         accumlunch = 0;
+         accumdinner = 0;
+
+      }
+
+   }
+
+
+   if (chart != null) chart.destroy();
+   $(function() {
+      var ctx = document.getElementById("canvas").getContext("2d");
+      
+      chart = new Chart(ctx).LineBar(lineBarChartData, {
+         responsive : true
+      });
+
+      
+   });
+   if (who == 0)
+    document.getElementById('inform').innerHTML = "해당 기간 중 가장 많이 먹었던 날은 " + formatDate(maxDay2) + "입니다";
+  else{
+
+    document.getElementById('inform').innerHTML = "해당 기간 중 가장 많이 먹었던 식단은 " + formatDate(maxEating[0]) + " 날의 " + (maxEating[1] == 0? "아침": maxEating[1] == 1? "점심":"저녁") + "입니다.";
+   }
+
+   document.getElementById('inform2').innerHTML = "해당 기간 동안 먹은 식단의 총 횟수는 "+sum+"회 입니다.";
+   
+
+}
+
+function req(year, month, day) {
+  var xhttp;
+  var ret = [];
+  if (window.XMLHttpRequest) {
+    // code for modern browsers
+    xhttp = new XMLHttpRequest();
+    } else {
+    // code for IE6, IE5
+    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var a = JSON.parse(this.responseText);
+      for (i in a){
+        ret.push(a[i]);
+      }
+    }
+  };
+  xhttp.open("GET", "/api/user/date/" + year + "/" + month + "/" + day, false);
+  xhttp.send();
+  return ret;
+}
+
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth()),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+
+
+</script>
+</body>
+</html>
