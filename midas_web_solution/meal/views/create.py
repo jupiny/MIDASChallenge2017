@@ -8,16 +8,8 @@ from food.models import Food
 from menu.models import Menu
 from meal.models import Meal
 from users.mixins import AdminRequiredMixin
-
-
-BREAKFAST = 1
-LUNCH = 2
-DINNER = 3
-
-RICE = 1
-SOUP = 2
-SIDE_DISH = 3
-DESSERT = 4
+from meal.constants import BREAKFAST, LUNCH, DINNER
+from food.constants import RICE, SOUP, SIDE_DISH, DESSERT
 
 
 class MealCreateView(AdminRequiredMixin, View):

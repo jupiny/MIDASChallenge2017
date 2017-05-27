@@ -7,12 +7,7 @@ from date.models import Date
 from food.models import Food
 from menu.models import Menu 
 from users.mixins import AdminRequiredMixin
-
-
-RICE = 1
-SOUP = 2
-SIDE_DISH = 3
-DESSERT = 4
+from food.constants import RICE, SOUP, SIDE_DISH, DESSERT
 
 
 class MealUpdateView(AdminRequiredMixin, View):

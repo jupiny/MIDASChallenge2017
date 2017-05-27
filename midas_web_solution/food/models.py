@@ -1,10 +1,7 @@
 from django.db import models
 
+from food.constants import RICE, SOUP, SIDE_DISH, DESSERT
 
-RICE = 1
-SOUP = 2
-SIDE_DISH = 3
-DESSERT = 4
 
 FOOD_TYPE_CHOICES = (
     (RICE, '밥'),
