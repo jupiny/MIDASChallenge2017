@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}전체 음식{% endblock title %}
+{% block content %}
+{% for food in foods %}
+  <p>음식 : {{ food.name }}</p>
+{% endfor %}
+{% endblock content %}
+
