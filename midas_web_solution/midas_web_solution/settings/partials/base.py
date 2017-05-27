@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'date',
     'meal',
     'food',
+    'menu',
 ]
 
 MIDDLEWARE = [

@@ -18,7 +18,7 @@ class Food(models.Model):
     meal_set = models.ManyToManyField(
         'meal.Meal',
         related_name='food_set',
-        related_query_name='food',
+        through='menu.Menu',
     )
     name = models.CharField(max_length=100)
     food_type = models.IntegerField(choices=FOOD_TYPE_CHOICES)
@@ -37,3 +37,5 @@ class Food(models.Model):
         if self.image:
             return self.image.url
         return 'http://placehold.it/350x150'
+
+
