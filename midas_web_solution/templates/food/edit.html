@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}음식 수정{% endblock title %}
+{% block content %}
+<form action="{% url "food:update" pk=food.id %}" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <label for="">이미지</label>
+  <input type="file" name="image">
+  <label for="">이름</label>
+  <input type="text" name="name" value="{{ food.name }}">
+  <label for="">칼로리</label>
+  <input type="number" name="calorie" min=0 value="{{ food.calorie }}">
+  <label for="">원산지</label>
+  <input type="text" name="origin" value="{{ food.origin }}">
+  <br>
+  <input type="radio" name="food_type" value="1" {% if food.food_type == 1 %}checked{% endif %}>밥<br>
+  <input type="radio" name="food_type" value="2" {% if food.food_type == 2 %}checked{% endif %}>국<br>
+  <input type="radio" name="food_type" value="3" {% if food.food_type == 3 %}checked{% endif %}>반찬<br>
+  <input type="radio" name="food_type" value="4" {% if food.food_type == 4 %}checked{% endif %}>디저트<br>
+  <input type="submit" value="저장" />
+</form>
+{% endblock content %}

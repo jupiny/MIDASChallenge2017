@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}음식 상세정보{% endblock title %}
+{% block content %}
+<p>음식 : {{ food.name }}</p>
+<img width="350" height="150" src="{{ food.image_url }}" alt="">
+<a href="{% url "food:edit" pk=food.id %}">수정</a>
+<a href="{% url "food:delete" pk=food.id %}">삭제</a>
+{% endblock content %}
