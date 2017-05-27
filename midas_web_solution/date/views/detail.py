@@ -5,7 +5,6 @@ from date.models import Date
 
 
 class DateDetailView(View):
-    template_name = 'date/detail.html'
 
     def get(self, request, *args, **kwargs):
         year = kwargs.get('year')

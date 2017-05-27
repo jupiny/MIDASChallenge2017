@@ -39,4 +39,9 @@
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
+    <form action="{% url "date:list" %}" method="GET">
+        <input type="date" name="start_date" value="{{ start_date }}" required>
+        <input type="date" name="end_date" value="{{ end_date }}" required>
+        <input type="submit" value="검색">
+    </form>
 </nav>
