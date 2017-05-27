@@ -4,9 +4,14 @@
     <div class="row ">
 
         <div class="col-lg-5 col-lg-offset-3">
-        <div class="col-lg-offset-5">
-            <h1 class="center-block" >음식 리스트</h1>
-        </div>
+            <div class="col-lg-offset-5">
+                <h1 class="center-block">음식 리스트</h1>
+                <div class="col-lg-offset-7">
+                    <a href="{% url 'food:new' %}">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+            </div>
             {% for food in foods %}
                 <div class="media">
                     <a class="pull-left" href="#">
@@ -28,13 +33,13 @@
                         </h4>
                         <h5>맛있게 먹으면 0칼로리 from <a href="/">Health Meal</a></h5>
                         <hr style="margin:8px auto">
-                    {% if request.user.is_staff %}
+                        {% if request.user.is_staff %}
 
-                        <span class="label label-success"><a style="color:white"
-                                                             href="{% url "food:edit" pk=food.id %}">수정</a></span>
-                        <span class="label label-danger"><a style="color:white"
-                                                            href="{% url "food:delete" pk=food.id %}">삭제</a></span>
-                    {% endif %}
+                            <span class="label label-success"><a style="color:white"
+                                                                 href="{% url "food:edit" pk=food.id %}">수정</a></span>
+                            <span class="label label-danger"><a style="color:white"
+                                                                href="{% url "food:delete" pk=food.id %}">삭제</a></span>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
