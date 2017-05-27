@@ -1,8 +1,30 @@
 {% extends "base.html" %}
 {% block title %}음식 상세정보{% endblock title %}
 {% block content %}
-<p>음식 : {{ food.name }}</p>
-<img width="350" height="150" src="{{ food.image_url }}" alt="">
-<a href="{% url "food:edit" pk=food.id %}">수정</a>
-<a href="{% url "food:delete" pk=food.id %}">삭제</a>
+    <p>{{ food.name }}</p>
+    <img width="350" height="150" src="{{ food.image_url }}" alt="">
+    <a href="{% url "food:edit" pk=food.id %}">수정</a>
+    <a href="{% url "food:delete" pk=food.id %}">삭제</a>
+
+    <div class="row">
+
+        <div class="col-lg-5">
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object dp img-circle" src="{{ food.image_url }}"
+                         style="width: 100px;height:100px;">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ food.name }}
+                        <small> {{ food.food_type }}</small>
+                    </h4>
+                    <h5>Software Developer at <a href="http://gridle.in">Gridle.in</a></h5>
+                    <hr style="margin:8px auto">
+
+                    <span class="label label-default"><a href="{% url "food:edit" pk=food.id %}">수정</a></span>
+                    <span class="label label-default"><a href="{% url "food:delete" pk=food.id %}">삭제</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

@@ -1,11 +1,65 @@
 {% extends "base.html" %}
 {% block title %}전체 음식{% endblock title %}
 {% block content %}
-{% for food in foods %}
-  <p>
-    <a href="{% url "food:detail" pk=food.id %}">{{ food.name }}</a>
-  </p>
-  <img width="350" height="150" src="{{ food.image_url }}" alt="">
-{% endfor %}
+
+    <h1 class="center-block" style="width:300px;padding:15px;">음식 리스트</h1>
+
+
+    {% for food in foods %}
+        <div class="row">
+
+            <div class="col-lg-5">
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object dp img-circle" src="{{ food.image_url }}"
+                             style="width: 100px;height:100px;">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            <a href="{%  url 'food:detail' pk=food.id %}">{{ food.name }}</a>
+                            <small> {% if food.food_type == 1 %}
+                                주식
+                                {% elif food.food_type == 2%}
+                                국
+                                {% elif food.food_type == 3%}
+                                반찬
+                                {% elif food.food_type == 4%}
+                                디저트
+                                {% endif%}</small>
+                        </h4>
+                        <h5>Software Developer at <a href="http://gridle.in">Gridle.in</a></h5>
+                        <hr style="margin:8px auto">
+
+                        <span class="label label-default"><a href="{% url "food:edit" pk=food.id %}">수정</a></span>
+                        <span class="label label-default"><a href="{% url "food:delete" pk=food.id %}">삭제</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+    {% endfor %}
+
+    <br/>
+
+    <div>
+        <p>
+    <span class="center-block" style="width:300px;padding:15px;">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">
+                <span class="glyphicon glyphicon-chevron-left" style="font-size:1.3em;"></span>
+            </a>
+        {% endif %}
+
+        {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">
+                <span class="glyphicon glyphicon-chevron-right" style="font-size:1.3em;"></span>
+            </a>
+        {% endif %}
+    </span>
+        </p>
+    </div>
+
 {% endblock content %}
 

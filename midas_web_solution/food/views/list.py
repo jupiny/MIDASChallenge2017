@@ -7,3 +7,4 @@ class FoodListView(ListView):
     model = Food
     template_name = 'food/list.html'
     context_object_name = 'foods'
+    paginate_by = 5

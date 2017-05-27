@@ -1,9 +1,33 @@
 /* CSS Files */
 
 header {
-  color: red;
 }
 
 footer {
-  color: blue;
+  padding: 40px 0;
+  color : #555555;
+    background: #252525;
+    border-top: 5px solid #555;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-weight: bold;
+}
+
+.content{
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.glyphicon {
+  font-size: 100px
+}
+.glyphicon.glyphicon-globe {
+    font-size: 120px;
 }
