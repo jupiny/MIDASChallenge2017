@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^$', FoodListView.as_view(), name='list'),
     url(r'^new/$', FoodNewView.as_view(), name='new'),
     url(r'^create/$', FoodCreateView.as_view(), name='create'),
+    url(r'^(?P<pk>\d+)/$', FoodDetailView.as_view(), name='detail'),
 ]
