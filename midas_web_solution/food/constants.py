@@ -1,0 +1,4 @@
+RICE = 1
+SOUP = 2
+SIDE_DISH = 3
+DESSERT = 4

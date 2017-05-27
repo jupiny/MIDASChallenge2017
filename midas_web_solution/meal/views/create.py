@@ -7,19 +7,12 @@ from date.models import Date
 from food.models import Food
 from menu.models import Menu
 from meal.models import Meal
+from users.mixins import AdminRequiredMixin
+from meal.constants import BREAKFAST, LUNCH, DINNER
+from food.constants import RICE, SOUP, SIDE_DISH, DESSERT
 
 
-BREAKFAST = 1
-LUNCH = 2
-DINNER = 3
-
-RICE = 1
-SOUP = 2
-SIDE_DISH = 3
-DESSERT = 4
-
-
-class MealCreateView(View):
+class MealCreateView(AdminRequiredMixin, View):
     meal_type = None
     template_name = None
 

@@ -2,9 +2,10 @@ from django.views.generic.base import View
 from django.shortcuts import redirect
 
 from food.models import Food
+from users.mixins import AdminRequiredMixin
 
 
-class FoodCreateView(View):
+class FoodCreateView(AdminRequiredMixin, View):
     
     def post(self, request, *args, **kwargs):
         name = request.POST.get('name')
