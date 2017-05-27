@@ -15,6 +15,9 @@ class Food(models.Model):
         null=True,
     )
 
+    def __str__(self):
+        return self.name
+
     @property
     def image_url(self):
         if self.image:
