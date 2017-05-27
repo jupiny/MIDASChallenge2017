@@ -18,8 +18,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 
-from .views.home import UserCreateView, UserCreateDoneTV
-
+from users.views import UserCreateView, UserCreateDoneTV
 from .views import home
 
 urlpatterns = [
