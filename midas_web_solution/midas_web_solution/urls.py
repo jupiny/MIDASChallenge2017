@@ -19,7 +19,8 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from users.views import UserCreateView, UserCreateDoneTV
-from .views import home
+from .views import home, UserAnalysisView, AdminAnalysisView
+
 
 urlpatterns = [
                   url(r'^admin/', admin.site.urls),
@@ -30,6 +31,8 @@ urlpatterns = [
                   url(r'^account/register/done/$', UserCreateDoneTV.as_view(), name='register_done'),
 
                   url(r'^$', home, name='home'),
+                  url(r'^user/analysis/$', UserAnalysisView.as_view(), name='user-analysis'),
+                  url(r'^admin/analysis/$', AdminAnalysisView.as_view(), name='admin-analysis'),
                   url(r'^foods/', include('food.urls', namespace='food')),
                   url(r'^date/', include('date.urls', namespace='date')),
                   url(r'^api/', include('api.urls', namespace='api')),

@@ -25,7 +25,7 @@
                             >
                                 <p>{{ date.breakfast_meal.rice.name }}</p>
                                 <p>{{ date.breakfast_meal.soup.name }}</p>
-                                {% for side_dish in breakfast_meal.side_dish_set.all %}
+                                {% for side_dish in date.breakfast_meal.side_dish_set.all %}
                                     <p>{{ side_dish.name }}</p>
                                 {% endfor %}
                                 {% if request.user.is_staff %}
@@ -52,7 +52,7 @@
                             >
                                 <p>{{ date.lunch_meal.rice.name }}</p>
                                 <p>{{ date.lunch_meal.soup.name }}</p>
-                                {% for side_dish in lunch_meal.side_dish_set.all %}
+                                {% for side_dish in date.lunch_meal.side_dish_set.all %}
                                     <p>{{ side_dish.name }}</p>
                                 {% endfor %}
                                 {% if request.user.is_staff %}
@@ -78,7 +78,7 @@
                             >
                                 <p>{{ date.dinner_meal.rice.name }}</p>
                                 <p>{{ date.dinner_meal.soup.name }}</p>
-                                {% for side_dish in dinner_meal.side_dish_set.all %}
+                                {% for side_dish in date.dinner_meal.side_dish_set.all %}
                                     <p>{{ side_dish.name }}</p>
                                 {% endfor %}
                                 {% if request.user.is_staff %}
