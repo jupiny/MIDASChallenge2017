@@ -184,12 +184,6 @@ function makeTable(begin, end, range, who){
 
       
    });
-   if (who == 0)
-    document.getElementById('inform').innerHTML = "해당 기간 중 가장 많이 먹었던 날은 " + formatDate(maxDay2) + "입니다";
-  else{
-
-    document.getElementById('inform').innerHTML = "해당 기간 중 가장 많이 먹었던 식단은 " + formatDate(maxEating[0]) + " 날의 " + (maxEating[1] == 0? "아침": maxEating[1] == 1? "점심":"저녁") + "입니다.";
-   }
 
    document.getElementById('inform2').innerHTML = "해당 기간 동안 먹은 식단의 총 횟수는 "+sum+"회 입니다.";
    
